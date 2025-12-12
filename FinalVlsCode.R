@@ -126,3 +126,19 @@ y_vals <- y_vals * diff(h$breaks)[1] * length(asia_europe$score)
 lines(x_vals, y_vals, lwd = 2, col = "orange")
 
 dev.off()
+
+
+# 7. Mann–Whitney U test (Wilcoxon rank-sum test)
+
+test_result <- wilcox.test(score ~ Region, data = asia_europe)
+
+print(test_result)
+
+# Save a brief summary of the test results
+sink("outputs/test_results.txt")
+cat("Statistical Test Used: Mann-Whitney U Test (Wilcoxon rank-sum)\n")
+cat("Null hypothesis (H0): There is no difference in the distribution of CWUR scores\n")
+cat("                     between universities in Asia and Europe.\n\n")
+cat("Test Statistic (W):", test_result$statistic, "\n")
+cat("P-value:", test_result$p.value, "\n")
+sink()
